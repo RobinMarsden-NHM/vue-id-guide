@@ -1,0 +1,38 @@
+$font-dir: "./fonts/";
+
+
+@font-face {
+	font-family: "elysio-regular";
+	src: url("#{$font-dir}elysio-regular.woff") format("woff");
+}
+
+body {
+	margin: 0;
+	background: #EEE;
+	height: 100vh;
+	width: 100vw;
+	position: relative;
+	background: url('img/bg3.png');
+}
+
+.container {
+	background: white;
+	margin: 0 auto;
+	box-sizing: border-box;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	max-width: 800px;
+	text-align: center;
+	// font-family: Arial, Helvetica, sans-serif;
+	font-family: "elysio-regular";
+}
+
+h1 {
+	font-size: 1.5rem;
+	box-sizing: border-box;
+	padding: 0.75rem;
+	margin: 0;
+	width: 100%;
+  color: #255;
+}
