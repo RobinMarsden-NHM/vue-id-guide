@@ -1,6 +1,7 @@
 <template>
   <div class="idguide-answer">
-    {{ state.answer.name }}
+    <img :src="answerImg">
+    <p>{{ state.answer.description }}</p>
   </div>
 </template>
 
@@ -16,8 +17,8 @@ export default {
     }
   },
   computed: {
-    optionImg () {
-      const filename = `${this.state.keyId}-${this.state.step.step}-${this.index}.png`
+    answerImg () {
+      const filename = `${this.state.answer.img}.png`
       return require(`../../assets/content-imgs/${filename}`)
     }
   }

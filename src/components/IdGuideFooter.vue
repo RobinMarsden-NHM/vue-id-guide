@@ -1,7 +1,7 @@
 <template>
   <div
     class="idguide-footer"
-    @click="selectOption"
+    @click="gotoHome"
   >
     <h1>Footer</h1>
   </div>
@@ -10,8 +10,8 @@
 <script>
 export default {
   methods: {
-    selectOption: function () {
-      this.$emit('selectOption')
+    gotoHome: function () {
+      this.$emit('gotoHome')
     }
   }
 }

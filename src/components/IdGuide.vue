@@ -6,9 +6,10 @@
     <IdGuideMain
       :state="state"
       @selectOption="selectOption($event)"
+      @gotoGuide="setDisplayMode('guide')"
     />
     <IdGuideFooter
-      @selectOption="selectOption"
+      @gotoHome="setDisplayMode('home')"
     />
   </div>
 </template>
@@ -28,67 +29,83 @@ export default {
     dataset: {
       type: Object,
       required: true,
-      default: () => ({
-        title: undefined
-      })
+      default: () => ({})
     }
   },
   data: function () {
     return {
       state: {
-        keyIndex: 0, // Holds index of current 'key' in 'data' array
-        stepIndex: 0, // Holds index of current step in current key's 'step' array
-        keyId: undefined, // Holds name of current key
-        title: undefined, // Holds current title text, ie description of current key or answer name
-        step: {}, // Holds current step object
-        answer: {} // Holds answer if arrived at
+        displayMode: 'home',
+        keyIndex: 0,
+        stepIndex: 0,
+        keyId: undefined,
+        title: undefined,
+        step: {},
+        answer: {}
       }
     }
   },
   mounted () {
-    this.selectOption()
+    this.setDisplayMode('home')
   },
   methods: {
-    selectOption: function (e) {
-      if (this.state.step.options && this.state.step.options.length > 0) {
-        this.state.answer = {}
-        this.state.step.options = []
+    setDisplayMode: function (newMode) {
+      switch (newMode) {
+        case 'home':
+          this.state = this.getInitialState()
+          this.state.displayMode = 'home'
+          break
+        case 'guide':
+          this.state = this.getInitialState()
+          this.state.displayMode = 'guide'
+          this.showStep()
+          break
+        case 'answer':
+          console.log('Setting "answer" display mode')
+          this.state.title = this.state.answer.name
+          this.state.displayMode = 'answer'
+          break
+        default:
+          throw new Error('A display mode must be passed!')
       }
-      if (e) {
-        //  ...if event passes new state info
+      console.log(this.state)
+    },
+    getInitialState: function () {
+      //  Returns state to entrypoint of ID guide
+      return {
+        keyIndex: 0,
+        stepIndex: 0,
+        keyId: undefined,
+        title: undefined,
+        step: {},
+        answer: {}
+      }
+    },
+    showStep: function () {
+      this.state.title = this.dataset.data[this.state.keyIndex].description
+      this.state.keyId = this.dataset.data[this.state.keyIndex].key
+      this.state.step = this.dataset.data[this.state.keyIndex].steps[this.state.stepIndex]
+      console.log(this.state)
+    },
+    selectOption: function (e) {
+      console.log('Selecting option...')
+      if (e.answerId) {
+        //  If answer is passed
+        console.log(`*****Answer: ${e.answerId}`)
+        this.state.answer = this.dataset.answers[this.getAnswerIndex(e.answerId)]
+        this.state.step = {}
+        this.setDisplayMode('answer')
+      } else if (e) {
+        //  ...else if event passes new step info
         if (e.step) {
           this.state.stepIndex = this.getStepIndex(e.step)
         } else if (e.key) {
           this.state.keyIndex = this.getKeyIndex(e.key)
-        } else {
-          //  ...handle answers
-          console.log(e.answer)
-          this.state.step = {}
-          this.state.stepId = undefined
-          this.state.keyId = undefined
-          this.state.answer = {
-            name: e.answer
-          }
         }
+        this.showStep()
       } else {
-        //  ...default to first page of dataset
-        this.state.keyIndex = 0
-        this.state.stepIndex = 0
+        throw new Error('An event must be passed to selectOption')
       }
-      this.updateContent()
-    },
-    updateContent: function () {
-      if (this.state.answer.name) {
-        this.state.title = this.state.answer.name
-      } else {
-        this.state.title = this.dataset.data[this.state.keyIndex].description
-        this.state.keyId = this.dataset.data[this.state.keyIndex].key
-        this.state.step = this.dataset.data[this.state.keyIndex].steps[this.state.stepIndex]
-      }
-    },
-    logDataset: function (e) {
-      console.log('Logging dataset...')
-      console.log(this.dataset)
     },
     getKeyIndex: function (keyId) {
       return this.dataset.data.findIndex(el => {
@@ -98,6 +115,11 @@ export default {
     getStepIndex: function (stepId) {
       return this.dataset.data[this.state.keyIndex].steps.findIndex(el => {
         return el.step === stepId
+      })
+    },
+    getAnswerIndex: function (answerId) {
+      return this.dataset.answers.findIndex(el => {
+        return el.id === answerId
       })
     }
   }

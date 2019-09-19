@@ -1,6 +1,13 @@
 <template>
   <div class="idguide-main">
-    <div class="idguide-content-wrapper">
+    <IdGuideHome
+      v-if="state.displayMode === 'home'"
+      @gotoGuide="gotoGuide()"
+    />
+    <div
+      v-if="state.displayMode === 'guide'"
+      class="idguide-content-wrapper"
+    >
       <IdGuideOption
         v-for="(option, index) in state.step.options"
         :key="index"
@@ -9,19 +16,22 @@
         :index="index"
         @selectOption="selectOption($event)"
       />
-      <IdGuideAnswer
-        :state="state"
-      />
     </div>
+    <IdGuideAnswer
+      v-if="state.displayMode === 'answer'"
+      :state="state"
+    />
   </div>
 </template>
 
 <script>
+import IdGuideHome from './IdGuideHome.vue'
 import IdGuideOption from './IdGuideOption.vue'
 import IdGuideAnswer from './IdGuideAnswer.vue'
 
 export default {
   components: {
+    IdGuideHome,
     IdGuideOption,
     IdGuideAnswer
   },
@@ -29,14 +39,16 @@ export default {
     state: {
       type: Object,
       required: true,
-      default: () => ({
-        title: undefined
-      })
+      default: () => ({})
     }
   },
   methods: {
+    gotoGuide: function () {
+      console.log('Start')
+      this.$emit('gotoGuide')
+    },
     selectOption: function (e) {
-      console.log(e)
+      console.log('Home')
       this.$emit('selectOption', e)
     }
   }
@@ -49,6 +61,9 @@ $transition-time: 0.5s;
 .idguide-main {
   flex-grow: 1;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 .idguide-content-wrapper {
   display: inline-block;
