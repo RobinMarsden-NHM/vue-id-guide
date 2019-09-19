@@ -29,4 +29,7 @@ export default {
 .idguide-answer {
   background: rgba(255,255,150,0.4);
 }
+img {
+  width: 100%;
+}
 </style>
