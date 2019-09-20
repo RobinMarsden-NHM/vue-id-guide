@@ -45,7 +45,7 @@ export default {
 
 <style scoped lang="scss">
 .idguide-footer {
-  background: rgba(200,255,200,0.3);
+  background: rgba(150,150,150,0.3);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

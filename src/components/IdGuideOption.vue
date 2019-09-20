@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     selectOption: function () {
-      console.log(`********* ${JSON.stringify(this.option)}`)
+      // console.log(`Option selected: ${JSON.stringify(this.option)}`)
       this.$emit('selectOption', this.option)
     }
   }

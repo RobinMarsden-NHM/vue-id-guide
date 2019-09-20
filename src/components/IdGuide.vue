@@ -42,7 +42,8 @@ export default {
         title: undefined,
         step: {},
         answer: {}
-      }
+      },
+      stateHistory: []
     }
   },
   mounted () {
@@ -50,6 +51,7 @@ export default {
   },
   methods: {
     setDisplayMode: function (newMode) {
+      // console.log(`Setting display mode: ${newMode}`)
       switch (newMode) {
         case 'home':
           this.state = this.getInitialState()
@@ -61,14 +63,13 @@ export default {
           this.showStep()
           break
         case 'answer':
-          console.log('Setting "answer" display mode')
           this.state.title = this.state.answer.name
           this.state.displayMode = 'answer'
           break
         default:
           throw new Error('A display mode must be passed!')
       }
-      console.log(this.state)
+      // console.log(this.state)
     },
     getInitialState: function () {
       //  Returns state to entrypoint of ID guide
@@ -85,13 +86,11 @@ export default {
       this.state.title = this.dataset.data[this.state.keyIndex].description
       this.state.keyId = this.dataset.data[this.state.keyIndex].key
       this.state.step = this.dataset.data[this.state.keyIndex].steps[this.state.stepIndex]
-      console.log(this.state)
     },
     selectOption: function (e) {
-      console.log('Selecting option...')
       if (e.answerId) {
         //  If answer is passed
-        console.log(`*****Answer: ${e.answerId}`)
+        // console.log(`*****Answer: ${e.answerId}`)
         this.state.answer = this.dataset.answers[this.getAnswerIndex(e.answerId)]
         this.state.step = {}
         this.setDisplayMode('answer')

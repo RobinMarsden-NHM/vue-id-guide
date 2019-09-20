@@ -46,11 +46,9 @@ export default {
   },
   methods: {
     gotoGuide: function () {
-      console.log('Start')
       this.$emit('gotoGuide')
     },
     selectOption: function (e) {
-      console.log('Home')
       this.$emit('selectOption', e)
     }
   }
