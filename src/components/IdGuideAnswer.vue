@@ -1,7 +1,13 @@
 <template>
   <div class="idguide-answer">
+    <h1>{{ state.title }}</h1>
     <img :src="answerImg">
     <p>{{ state.answer.description }}</p>
+    <button
+      @click="gotoGuide"
+    >
+      Start again
+    </button>
   </div>
 </template>
 
@@ -21,13 +27,18 @@ export default {
       const filename = `${this.state.answer.img}.png`
       return require(`../../assets/content-imgs/${filename}`)
     }
+  },
+  methods: {
+    gotoGuide: function () {
+      this.$emit('gotoGuide')
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .idguide-answer {
-  background: rgba(255,255,150,0.4);
+  // background: rgba(255,255,150,0.4);
 }
 img {
   width: 100%;

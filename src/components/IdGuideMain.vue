@@ -8,6 +8,7 @@
       v-if="state.displayMode === 'guide'"
       class="idguide-content-wrapper"
     >
+      <h1>{{ state.title }}</h1>
       <IdGuideOption
         v-for="(option, index) in state.step.options"
         :key="index"
@@ -20,6 +21,7 @@
     <IdGuideAnswer
       v-if="state.displayMode === 'answer'"
       :state="state"
+      @gotoGuide="gotoGuide()"
     />
   </div>
 </template>

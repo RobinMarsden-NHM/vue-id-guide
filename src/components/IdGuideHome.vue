@@ -31,9 +31,4 @@ export default {
 h1 {
   font-size: 3rem;
 }
-button {
-  padding: 0.5rem 2rem;
-  font-size: 1rem;
-  font-family: "elysio-regular";
-}
 </style>

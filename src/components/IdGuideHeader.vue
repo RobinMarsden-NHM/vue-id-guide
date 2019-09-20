@@ -5,7 +5,6 @@
       src="../img/logo.png"
       alt="NHM logo"
     >
-    <h1>{{ state.title }}</h1>
   </div>
 </template>
 

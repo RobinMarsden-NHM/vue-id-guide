@@ -2,7 +2,8 @@
   <div class="idguide-footer">
     <button
       class="navButton"
-      @click="gotoHome">
+      @click="gotoHome"
+    >
       <img
         class="navIcon"
         src="../img/home.svg"
@@ -11,7 +12,8 @@
     </button>
     <button
       class="navButton"
-      @click="gotoHome">
+      @click="gotoHome"
+    >
       <img
         class="navIcon"
         src="../img/arrow-outline-left.svg"
@@ -20,7 +22,8 @@
     </button>
     <button
       class="navButton"
-      @click="gotoHome">
+      @click="gotoHome"
+    >
       <img
         class="navIcon"
         src="../img/arrow-outline-right.svg"

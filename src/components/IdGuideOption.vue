@@ -53,6 +53,7 @@ export default {
 
 <style scoped lang="scss">
 .idguide-option-wrapper {
+  width: 100%;
   display: inline-block;
 }
 .idguide-option {
