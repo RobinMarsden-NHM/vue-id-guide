@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import '../assets/app.scss'
+import { inputTypes } from './common/globals'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -11,6 +12,8 @@ if ('serviceWorker' in navigator) {
     })
   })
 }
+
+Vue.prototype.$inputTypes = inputTypes
 
 /* eslint-disable-next-line no-new */
 new Vue({

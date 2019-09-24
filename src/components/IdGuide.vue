@@ -6,11 +6,15 @@
     <IdGuideMain
       :state="state"
       :current-state-obj="currentStateObj"
-      @selectOption="handleInput('option', $event)"
-      @startGuide="handleInput('guide')"
+      @selectOption="selectOption($event)"
+      @startGuide="startGuide"
     />
     <IdGuideFooter
-      @gotoHome="handleInput('home')"
+      :history-index="historyIndex"
+      :state-history="stateHistory"
+      @gotoHome="gotoHome"
+      @goBack="goBack"
+      @goForward="goForward"
     />
   </div>
 </template>
@@ -38,11 +42,12 @@ export default {
   data: function () {
     return {
       state: {
-        displayMode: 'home',
-        keyId: 'master',
+        displayMode: undefined,
+        keyId: undefined,
         title: undefined,
-        stepId: '1'
+        stepId: undefined
       },
+      historyIndex: undefined,
       stateHistory: []
     }
   },
@@ -55,12 +60,12 @@ export default {
     },
 
     currentStateObj: function () {
-      if (this.state.displayMode === 'guide') {
+      if (this.state.displayMode === this.$inputTypes.GUIDE) {
         const stepIndex = this.dataset.data[this.currentKeyIndex].steps.findIndex(el => {
           return el.step === this.state.stepId
         })
         return this.dataset.data[this.currentKeyIndex].steps[stepIndex]
-      } else if (this.state.displayMode === 'answer') {
+      } else if (this.state.displayMode === this.$inputTypes.ANSWER) {
         const answerIndex = this.dataset.answers.findIndex(el => {
           return el.id === this.state.answerId
         })
@@ -72,55 +77,105 @@ export default {
   },
 
   mounted () {
-    this.handleInput('home')
+    this.handleInput(this.$inputTypes.HOME)
   },
 
   methods: {
     handleInput: function (type, data) {
-      console.log(`Handling input: ${type}`)
-      console.log(`${JSON.stringify(data)}`)
+      // console.log(`Handling input: ${type}`)
+      let newDisplayMode = type
+      let storeState = true
       switch (type) {
-        case 'home':
-          this.state = this.getInitialState()
+        case this.$inputTypes.HOME:
+          if (this.state.displayMode === this.$inputTypes.HOME) {
+            storeState = false
+          }
+          Object.assign(this.state, this.getInitialState())
           break
-        case 'guide':
-          this.state = this.getInitialState()
+        case this.$inputTypes.GUIDE:
+          Object.assign(this.state, this.getInitialState())
           break
-        case 'option':
+        case this.$inputTypes.OPTION:
           if (data.step) {
             this.state.stepId = data.step
-            type = 'guide'
+            newDisplayMode = this.$inputTypes.GUIDE
           } else if (data.key) {
             this.state.keyId = data.key
-            type = 'guide'
+            newDisplayMode = this.$inputTypes.GUIDE
           } else if (data.answerId) {
-            console.log('answer!!')
             this.state.answerId = data.answerId
             this.state.stepId = undefined
-            type = 'answer'
+            newDisplayMode = this.$inputTypes.ANSWER
           }
           break
-        case 'back':
+        case this.$inputTypes.BACK:
+          if (this.historyIndex > 0) {
+            this.historyIndex--
+            Object.assign(this.state, this.stateHistory[this.historyIndex])
+            newDisplayMode = this.state.displayMode
+          } else {
+            newDisplayMode = this.$inputTypes.HOME
+          }
+          storeState = false
           break
-        case 'forward':
+        case this.$inputTypes.FORWARD:
+          if (this.historyIndex < this.stateHistory.length - 1) {
+            this.historyIndex++
+            Object.assign(this.state, this.stateHistory[this.historyIndex])
+            newDisplayMode = this.state.displayMode
+          }
+          storeState = false
           break
         default:
           throw new Error('An input type must be passed!')
       }
-      this.state.displayMode = type
-      if (this.state.displayMode === 'guide') {
+
+      this.state.displayMode = newDisplayMode
+
+      if (this.state.displayMode === this.$inputTypes.GUIDE) {
         this.state.title = this.dataset.data[this.currentKeyIndex].description
         this.state.keyId = this.dataset.data[this.currentKeyIndex].key
-        this.state.step = this.dataset.data[this.currentKeyIndex].steps[this.state.stepIndex]
-      } else if (this.state.displayMode === 'answer') {
+      } else if (this.state.displayMode === this.$inputTypes.ANSWER) {
         this.state.title = this.currentStateObj.name
       }
+
+      if (storeState) {
+        if (typeof this.historyIndex === 'undefined') {
+          this.historyIndex = 0
+        } else {
+          this.historyIndex++
+        }
+        this.stateHistory.length = this.historyIndex
+        const stateHistoryObj = {}
+        Object.assign(stateHistoryObj, this.state)
+        this.stateHistory.push(stateHistoryObj)
+      }
+    },
+
+    //  Initial input handlers
+    gotoHome: function () {
+      this.handleInput(this.$inputTypes.HOME)
+    },
+
+    startGuide: function () {
+      this.handleInput(this.$inputTypes.GUIDE)
+    },
+
+    selectOption: function ($event) {
+      this.handleInput(this.$inputTypes.OPTION, $event)
+    },
+
+    goBack: function () {
+      this.handleInput(this.$inputTypes.BACK)
+    },
+
+    goForward: function () {
+      this.handleInput(this.$inputTypes.FORWARD)
     },
 
     getInitialState: function () {
       return {
         keyId: 'master',
-        title: undefined,
         stepId: '1'
       }
     }

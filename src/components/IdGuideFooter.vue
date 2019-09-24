@@ -10,9 +10,12 @@
         alt="Home button"
       >
     </button>
+
     <button
       class="navButton"
-      @click="gotoHome"
+      :disabled="backBtnDisabled"
+      :class="{ disabled: backBtnDisabled }"
+      @click="goBack"
     >
       <img
         class="navIcon"
@@ -20,9 +23,12 @@
         alt="Back button"
       >
     </button>
+
     <button
       class="navButton"
-      @click="gotoHome"
+      :disabled="forwardBtnDisabled"
+      :class="{ disabled: forwardBtnDisabled }"
+      @click="goForward"
     >
       <img
         class="navIcon"
@@ -35,9 +41,38 @@
 
 <script>
 export default {
+  props: {
+    historyIndex: {
+      type: Number,
+      required: true,
+      default: () => 0
+    },
+    stateHistory: {
+      type: Array,
+      required: true,
+      default: () => ([])
+    }
+  },
+
+  computed: {
+    backBtnDisabled: function () {
+      return this.historyIndex < 1
+    },
+
+    forwardBtnDisabled: function () {
+      return this.historyIndex >= this.stateHistory.length - 1
+    }
+  },
+
   methods: {
     gotoHome: function () {
       this.$emit('gotoHome')
+    },
+    goBack: function () {
+      this.$emit('goBack')
+    },
+    goForward: function () {
+      this.$emit('goForward')
     }
   }
 }
@@ -57,13 +92,17 @@ export default {
   border: none;
   background: none;
 
-  &:active {
+  &:active:not(.disabled) {
     transform: scale(0.9);
   }
 
   &:active,
   &:focus {
     outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.5;
   }
 }
 
