@@ -43,15 +43,16 @@ export default {
       required: true
     }
   },
+
   computed: {
     optionImg () {
       const filename = `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.png`
       return require(`../../assets/content-imgs/${filename}`)
     }
   },
+
   methods: {
     selectOption: function () {
-      // console.log(`Option selected: ${JSON.stringify(this.option)}`)
       this.$emit('selectOption', this.option)
     }
   }

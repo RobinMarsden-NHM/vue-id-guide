@@ -7,7 +7,7 @@
       :state="state"
       :current-state-obj="currentStateObj"
       @selectOption="handleInput('option', $event)"
-      @gotoGuide="handleInput('guide')"
+      @startGuide="handleInput('guide')"
     />
     <IdGuideFooter
       @gotoHome="handleInput('home')"
@@ -26,6 +26,7 @@ export default {
     IdGuideMain,
     IdGuideFooter
   },
+
   props: {
     dataset: {
       type: Object,
@@ -33,6 +34,7 @@ export default {
       default: () => ({})
     }
   },
+
   data: function () {
     return {
       state: {
@@ -44,12 +46,14 @@ export default {
       stateHistory: []
     }
   },
+
   computed: {
     currentKeyIndex: function () {
       return this.dataset.data.findIndex(el => {
         return el.key === this.state.keyId
       })
     },
+
     currentStateObj: function () {
       if (this.state.displayMode === 'guide') {
         const stepIndex = this.dataset.data[this.currentKeyIndex].steps.findIndex(el => {
@@ -66,9 +70,11 @@ export default {
       }
     }
   },
+
   mounted () {
     this.handleInput('home')
   },
+
   methods: {
     handleInput: function (type, data) {
       console.log(`Handling input: ${type}`)
@@ -94,6 +100,10 @@ export default {
             type = 'answer'
           }
           break
+        case 'back':
+          break
+        case 'forward':
+          break
         default:
           throw new Error('An input type must be passed!')
       }
@@ -106,6 +116,7 @@ export default {
         this.state.title = this.currentStateObj.name
       }
     },
+
     getInitialState: function () {
       return {
         keyId: 'master',

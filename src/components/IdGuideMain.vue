@@ -2,7 +2,7 @@
   <div class="idguide-main">
     <IdGuideHome
       v-if="state.displayMode === 'home'"
-      @gotoGuide="gotoGuide()"
+      @startGuide="startGuide()"
     />
     <div
       v-if="state.displayMode === 'guide'"
@@ -23,7 +23,7 @@
       v-if="state.displayMode === 'answer'"
       :state="state"
       :current-state-obj="currentStateObj"
-      @gotoGuide="gotoGuide()"
+      @startGuide="startGuide()"
     />
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
     IdGuideOption,
     IdGuideAnswer
   },
+
   props: {
     state: {
       type: Object,
@@ -53,10 +54,11 @@ export default {
       })
     }
   },
+
   methods: {
-    gotoGuide: function () {
+    startGuide: function () {
       console.log(this.currentStateObj)
-      this.$emit('gotoGuide')
+      this.$emit('startGuide')
     },
     selectOption: function (e) {
       this.$emit('selectOption', e)

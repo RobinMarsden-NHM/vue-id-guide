@@ -4,7 +4,7 @@
     <img :src="answerImg">
     <p>{{ currentStateObj.description }}</p>
     <button
-      @click="gotoGuide"
+      @click="startGuide"
     >
       Start again
     </button>
@@ -29,6 +29,7 @@ export default {
       })
     }
   },
+
   computed: {
     answerImg () {
       console.log(this)
@@ -40,9 +41,10 @@ export default {
       }
     }
   },
+
   methods: {
-    gotoGuide: function () {
-      this.$emit('gotoGuide')
+    startGuide: function () {
+      this.$emit('startGuide')
     }
   }
 }

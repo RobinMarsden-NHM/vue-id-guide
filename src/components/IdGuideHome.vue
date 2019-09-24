@@ -2,7 +2,7 @@
   <div class="idguide-home">
     <h1>Tree ID guide</h1>
     <button
-      @click="gotoGuide"
+      @click="startGuide"
     >
       Tap to start
     </button>
@@ -12,8 +12,8 @@
 <script>
 export default {
   methods: {
-    gotoGuide: function () {
-      this.$emit('gotoGuide')
+    startGuide: function () {
+      this.$emit('startGuide')
     }
   }
 }
