@@ -31,6 +31,13 @@ export default {
         title: undefined
       })
     },
+    currentStateObj: {
+      type: Object,
+      required: true,
+      default: () => ({
+
+      })
+    },
     index: {
       type: Number,
       required: true
@@ -38,7 +45,7 @@ export default {
   },
   computed: {
     optionImg () {
-      const filename = `${this.state.keyId}-${this.state.step.step}-${this.index}.png`
+      const filename = `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.png`
       return require(`../../assets/content-imgs/${filename}`)
     }
   },

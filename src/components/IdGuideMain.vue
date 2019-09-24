@@ -10,10 +10,11 @@
     >
       <h1>{{ state.title }}</h1>
       <IdGuideOption
-        v-for="(option, index) in state.step.options"
+        v-for="(option, index) in currentStateObj.options"
         :key="index"
         :option="option"
         :state="state"
+        :current-state-obj="currentStateObj"
         :index="index"
         @selectOption="selectOption($event)"
       />
@@ -21,6 +22,7 @@
     <IdGuideAnswer
       v-if="state.displayMode === 'answer'"
       :state="state"
+      :current-state-obj="currentStateObj"
       @gotoGuide="gotoGuide()"
     />
   </div>
@@ -42,10 +44,18 @@ export default {
       type: Object,
       required: true,
       default: () => ({})
+    },
+    currentStateObj: {
+      type: Object,
+      required: true,
+      default: () => ({
+        options: []
+      })
     }
   },
   methods: {
     gotoGuide: function () {
+      console.log(this.currentStateObj)
       this.$emit('gotoGuide')
     },
     selectOption: function (e) {

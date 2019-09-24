@@ -2,7 +2,7 @@
   <div class="idguide-answer">
     <h1>{{ state.title }}</h1>
     <img :src="answerImg">
-    <p>{{ state.answer.description }}</p>
+    <p>{{ currentStateObj.description }}</p>
     <button
       @click="gotoGuide"
     >
@@ -20,12 +20,24 @@ export default {
       default: () => ({
         title: undefined
       })
+    },
+    currentStateObj: {
+      type: Object,
+      required: true,
+      default: () => ({
+        description: ''
+      })
     }
   },
   computed: {
     answerImg () {
-      const filename = `${this.state.answer.img}.png`
-      return require(`../../assets/content-imgs/${filename}`)
+      console.log(this)
+      if (this.currentStateObj.img) {
+        const filename = `${this.currentStateObj.img}.png`
+        return require(`../../assets/content-imgs/${filename}`)
+      } else {
+        return ''
+      }
     }
   },
   methods: {
