@@ -6,11 +6,11 @@
     <IdGuideMain
       :state="state"
       :current-state-obj="currentStateObj"
-      @selectOption="selectOption($event)"
-      @gotoGuide="setDisplayMode('guide')"
+      @selectOption="handleInput('option', $event)"
+      @gotoGuide="handleInput('guide')"
     />
     <IdGuideFooter
-      @gotoHome="setDisplayMode('home')"
+      @gotoHome="handleInput('home')"
     />
   </div>
 </template>
@@ -51,14 +51,12 @@ export default {
       })
     },
     currentStateObj: function () {
-      console.log('computing currentStateObj...')
       if (this.state.displayMode === 'guide') {
         const stepIndex = this.dataset.data[this.currentKeyIndex].steps.findIndex(el => {
           return el.step === this.state.stepId
         })
         return this.dataset.data[this.currentKeyIndex].steps[stepIndex]
       } else if (this.state.displayMode === 'answer') {
-        console.log('answer block')
         const answerIndex = this.dataset.answers.findIndex(el => {
           return el.id === this.state.answerId
         })
@@ -69,26 +67,43 @@ export default {
     }
   },
   mounted () {
-    this.setDisplayMode('home')
+    this.handleInput('home')
   },
   methods: {
-    setDisplayMode: function (newMode) {
-      console.log(`Setting display mode: ${newMode}`)
-      switch (newMode) {
+    handleInput: function (type, data) {
+      console.log(`Handling input: ${type}`)
+      console.log(`${JSON.stringify(data)}`)
+      switch (type) {
         case 'home':
           this.state = this.getInitialState()
-          this.state.displayMode = 'home'
           break
         case 'guide':
           this.state = this.getInitialState()
-          this.state.displayMode = 'guide'
           break
-        case 'answer':
-          this.state.displayMode = 'answer'
-          this.state.title = this.currentStateObj.name
+        case 'option':
+          if (data.step) {
+            this.state.stepId = data.step
+            type = 'guide'
+          } else if (data.key) {
+            this.state.keyId = data.key
+            type = 'guide'
+          } else if (data.answerId) {
+            console.log('answer!!')
+            this.state.answerId = data.answerId
+            this.state.stepId = undefined
+            type = 'answer'
+          }
           break
         default:
-          throw new Error('A display mode must be passed!')
+          throw new Error('An input type must be passed!')
+      }
+      this.state.displayMode = type
+      if (this.state.displayMode === 'guide') {
+        this.state.title = this.dataset.data[this.currentKeyIndex].description
+        this.state.keyId = this.dataset.data[this.currentKeyIndex].key
+        this.state.step = this.dataset.data[this.currentKeyIndex].steps[this.state.stepIndex]
+      } else if (this.state.displayMode === 'answer') {
+        this.state.title = this.currentStateObj.name
       }
     },
     getInitialState: function () {
@@ -96,26 +111,6 @@ export default {
         keyId: 'master',
         title: undefined,
         stepId: '1'
-      }
-    },
-    selectOption: function (e) {
-      if (e.answerId) {
-        this.state.stepId = undefined
-        this.state.keyId = undefined
-        this.state.answerId = e.answerId
-        this.setDisplayMode('answer')
-      } else if (e) {
-        this.state.answerId = undefined
-        if (e.step) {
-          this.state.stepId = e.step
-        } else if (e.key) {
-          this.state.keyId = e.key
-        }
-        this.state.title = this.dataset.data[this.currentKeyIndex].description
-        this.state.keyId = this.dataset.data[this.currentKeyIndex].key
-        this.state.step = this.dataset.data[this.currentKeyIndex].steps[this.state.stepIndex]
-      } else {
-        throw new Error('An event must be passed to selectOption')
       }
     }
   }
