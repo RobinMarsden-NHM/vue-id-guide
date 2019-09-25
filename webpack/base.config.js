@@ -7,6 +7,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const autoprefixer = require('autoprefixer')
+const postCssFlexbugsFixes = require('postcss-flexbugs-fixes')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -42,13 +43,14 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'vue-style-loader',
-          {
-            loader: 'css-loader'
-          },
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer]
+              plugins: () => [
+                autoprefixer,
+                postCssFlexbugsFixes
+              ]
             }
           },
           'sass-loader'

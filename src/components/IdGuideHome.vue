@@ -28,6 +28,11 @@ export default {
   justify-content: space-evenly;
   align-items: center;
 }
+@supports (display:-ms-grid) {
+  .idguide-home {
+    justify-content: space-around;
+  }
+}
 h1 {
   font-size: 3rem;
 }

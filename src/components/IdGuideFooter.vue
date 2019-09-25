@@ -85,6 +85,11 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
 }
+@supports (display:-ms-grid) {
+  .idguide-footer {
+    justify-content: space-around;
+  }
+}
 .navButton {
   padding: 1rem;
   height: 4rem;
