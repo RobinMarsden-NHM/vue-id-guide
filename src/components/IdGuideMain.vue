@@ -69,7 +69,6 @@ export default {
 
   methods: {
     startGuide: function () {
-      console.log(this.currentStateObj)
       this.$emit('startGuide')
     },
 

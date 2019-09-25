@@ -82,7 +82,6 @@ export default {
 
   methods: {
     handleInput: function (type, data) {
-      // console.log(`Handling input: ${type}`)
       let newDisplayMode = type
       let storeState = true
       switch (type) {

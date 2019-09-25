@@ -46,7 +46,6 @@ export default {
 
   computed: {
     optionImg () {
-      console.log(this.option)
       let filename = ''
       if (typeof this.option.img !== 'undefined') {
         filename += this.option.img
