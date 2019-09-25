@@ -1,15 +1,17 @@
 <template>
   <div class="idguide-options">
     <h1>{{ state.title }}</h1>
-    <IdGuideOption
-      v-for="(option, index) in currentStateObj.options"
-      :key="index"
-      :option="option"
-      :state="state"
-      :current-state-obj="currentStateObj"
-      :index="index"
-      @selectOption="selectOption($event)"
-    />
+    <transition-group name="list">
+      <IdGuideOption
+        v-for="(option, index) in currentStateObj.options"
+        :key="`${state.keyId}-${state.stepId}-${index}`"
+        :option="option"
+        :state="state"
+        :current-state-obj="currentStateObj"
+        :index="index"
+        @selectOption="selectOption($event)"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -47,5 +49,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.list-enter-active, .list-enter-leave {
+  transition: all 0.2s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  // transform: translateY(5px);
+}
 </style>

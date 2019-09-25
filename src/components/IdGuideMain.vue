@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$transition-time: 0.5s;
+$transition-time: 0.2s;
 
 .idguide-main {
   position: relative;
