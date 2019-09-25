@@ -2,7 +2,7 @@
   <div class="idguide-answer">
     <h1>{{ state.title }}</h1>
     <img :src="answerImg">
-    <p>{{ currentStateObj.description }}</p>
+    <p>{{ currentStateObj.description ? currentStateObj.description : `Placeholder for some really exciting description of ${this.state.title}` }}</p>
     <button
       @click="startGuide"
     >
@@ -34,7 +34,7 @@ export default {
     answerImg () {
       console.log(this)
       if (this.currentStateObj.img) {
-        const filename = `${this.currentStateObj.img}.png`
+        const filename = `${this.currentStateObj.img}.jpg`
         return require(`../../assets/content-imgs/${filename}`)
       } else {
         return ''

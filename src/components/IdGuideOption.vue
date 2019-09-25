@@ -46,7 +46,13 @@ export default {
 
   computed: {
     optionImg () {
-      const filename = `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.png`
+      console.log(this.option)
+      let filename = ''
+      if (typeof this.option.img !== 'undefined') {
+        filename += this.option.img
+      } else {
+        filename += `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.jpg`
+      }
       return require(`../../assets/content-imgs/${filename}`)
     }
   },
