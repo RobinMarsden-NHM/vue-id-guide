@@ -20,9 +20,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color-lightgreen: #d8f3d8;
+
 .idguide-home {
   flex-grow: 1;
-  background: rgba(155,220,155,0.4);
+  background: $color-lightgreen;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
