@@ -2,43 +2,44 @@
   <div
     class="idguide-main"
   >
-    <IdGuideHome
-      v-if="state.displayMode === 'home'"
-      @startGuide="startGuide()"
-    />
-    <div
-      v-if="state.displayMode === 'guide'"
-      class="idguide-content-wrapper"
+    <transition
+      name="fade"
+      mode="out-in"
     >
-      <h1>{{ state.title }}</h1>
-      <IdGuideOption
-        v-for="(option, index) in currentStateObj.options"
-        :key="index"
-        :option="option"
+      <IdGuideHome
+        v-if="state.displayMode === 'home'"
+        class="idguide-content-screen"
+        @startGuide="startGuide()"
+      />
+
+      <IdGuideOptions
+        v-if="state.displayMode === 'guide'"
+        class="idguide-content-screen"
         :state="state"
         :current-state-obj="currentStateObj"
-        :index="index"
         @selectOption="selectOption($event)"
       />
-    </div>
-    <IdGuideAnswer
-      v-if="state.displayMode === 'answer'"
-      :state="state"
-      :current-state-obj="currentStateObj"
-      @startGuide="startGuide()"
-    />
+
+      <IdGuideAnswer
+        v-if="state.displayMode === 'answer'"
+        class="idguide-content-screen"
+        :state="state"
+        :current-state-obj="currentStateObj"
+        @startGuide="startGuide()"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import IdGuideHome from './IdGuideHome.vue'
-import IdGuideOption from './IdGuideOption.vue'
+import IdGuideOptions from './IdGuideOptions.vue'
 import IdGuideAnswer from './IdGuideAnswer.vue'
 
 export default {
   components: {
     IdGuideHome,
-    IdGuideOption,
+    IdGuideOptions,
     IdGuideAnswer
   },
 
@@ -54,12 +55,6 @@ export default {
       default: () => ({
         options: []
       })
-    }
-  },
-
-  data: function () {
-    return {
-      imagesLoaded: false
     }
   },
 
@@ -83,18 +78,26 @@ export default {
 $transition-time: 0.5s;
 
 .idguide-main {
+  position: relative;
   flex-grow: 1;
   overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
-.idguide-content-wrapper {
-  display: inline-block;
-  position: relative;
+.idguide-content-screen {
+  position: absolute;
+  top: 0;
+  height: 100%;
   max-height: 100%;
   width: 100%;
   overflow: auto;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity $transition-time;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 </style>
