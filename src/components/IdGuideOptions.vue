@@ -1,5 +1,11 @@
 <template>
-  <div class="idguide-options">
+  <div
+    class="idguide-options"
+  >
+    <!-- <div
+      v-images-loaded:on.done="imgsLoaded"
+      class="idguide-options"
+    > -->
     <h1>{{ state.title }}</h1>
     <transition-group name="list">
       <IdGuideOption
@@ -17,11 +23,16 @@
 
 <script>
 import IdGuideOption from './IdGuideOption.vue'
+// import ImagesLoaded from 'vue-images-loaded'
 
 export default {
   components: {
     IdGuideOption
   },
+
+  // directives: {
+  //   ImagesLoaded
+  // },
 
   props: {
     state: {
@@ -31,6 +42,7 @@ export default {
         title: undefined
       })
     },
+
     currentStateObj: {
       type: Object,
       required: true,
@@ -40,9 +52,25 @@ export default {
     }
   },
 
+  data: function () {
+    return {
+      loaded: true
+    }
+  },
+
+  beforeUpdate () {
+    console.log('before update')
+    this.loaded = false
+  },
+
   methods: {
     selectOption: function (e) {
       this.$emit('selectOption', e)
+      // },
+
+    // imgsLoaded: function () {
+    //   console.log('images loaded')
+    //   this.loaded = true
     }
   }
 }

@@ -7,6 +7,7 @@
       <div class="img-wrapper">
         <img :src="optionImg">
       </div>
+
       <div class="txt-wrapper">
         <p>{{ option.text }}</p>
       </div>
@@ -24,6 +25,7 @@ export default {
         title: undefined
       })
     },
+
     state: {
       type: Object,
       required: true,
@@ -31,6 +33,7 @@ export default {
         title: undefined
       })
     },
+
     currentStateObj: {
       type: Object,
       required: true,
@@ -38,6 +41,7 @@ export default {
 
       })
     },
+
     index: {
       type: Number,
       required: true

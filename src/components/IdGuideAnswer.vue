@@ -50,10 +50,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color-lightgreen: #d8f3d8;
 .idguide-answer {
-  // background: rgba(255,255,150,0.4);
+  p {
+    padding: 1rem;
+  }
 }
 img {
   width: 100%;
+}
+button {
+  background: $color-lightgreen;
 }
 </style>
