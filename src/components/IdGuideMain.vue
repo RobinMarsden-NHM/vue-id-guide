@@ -1,5 +1,7 @@
 <template>
-  <div class="idguide-main">
+  <div
+    class="idguide-main"
+  >
     <IdGuideHome
       v-if="state.displayMode === 'home'"
       @startGuide="startGuide()"
@@ -55,11 +57,22 @@ export default {
     }
   },
 
+  data: function () {
+    return {
+      imagesLoaded: false
+    }
+  },
+
+  beforeUpdate () {
+    this.imagesLoaded = false
+  },
+
   methods: {
     startGuide: function () {
       console.log(this.currentStateObj)
       this.$emit('startGuide')
     },
+
     selectOption: function (e) {
       this.$emit('selectOption', e)
     }

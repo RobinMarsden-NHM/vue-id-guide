@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -81,6 +83,27 @@ module.exports = {
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true
-    })
+    }),
+    new WebpackPwaManifest({
+      name: 'Tree ID guide',
+      short_name: 'TreeID',
+      description: 'An interactive tree ID guide from the Natural History Museum',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      theme_color: '#ffffff',
+      icons: [
+        {
+          src: path.resolve('src/img/icon.png'),
+          sizes: [36, 48, 192, 512]
+        },
+        {
+          src: path.resolve('src/img/ios-icon.png'),
+          sizes: [36, 48, 192, 512, 1024],
+          destination: path.join('icons', 'ios'),
+          ios: true
+        }
+      ]
+    }),
+    new FaviconsWebpackPlugin('./src/img/icon.png')
   ]
 }
