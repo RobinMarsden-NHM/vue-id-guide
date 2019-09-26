@@ -48,3 +48,7 @@ button {
 	background: $color-white;
 	color: $color-darkgreen;
 }
+
+.lazy-image {
+	max-width: inherit !important;
+}

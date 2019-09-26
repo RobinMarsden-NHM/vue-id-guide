@@ -58,19 +58,9 @@ export default {
     }
   },
 
-  beforeUpdate () {
-    console.log('before update')
-    this.loaded = false
-  },
-
   methods: {
     selectOption: function (e) {
       this.$emit('selectOption', e)
-      // },
-
-    // imgsLoaded: function () {
-    //   console.log('images loaded')
-    //   this.loaded = true
     }
   }
 }
@@ -82,6 +72,6 @@ export default {
 }
 .list-enter, .list-leave-to {
   opacity: 0;
-  // transform: translateY(5px);
+  // transform: translateY(15px);
 }
 </style>

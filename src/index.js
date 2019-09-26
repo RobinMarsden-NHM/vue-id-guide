@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueLazyImageLoading from 'vue-lazy-image-loading'
 import '../assets/app.scss'
 import { inputTypes } from './common/globals'
 
@@ -13,6 +14,10 @@ if ('serviceWorker' in navigator) {
   })
 }
 
+Vue.use(VueLazyImageLoading, {
+  // delay: 2000,
+  blur: 2
+})
 Vue.prototype.$inputTypes = inputTypes
 
 /* eslint-disable-next-line no-new */

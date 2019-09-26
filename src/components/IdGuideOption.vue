@@ -5,7 +5,10 @@
       @click="selectOption"
     >
       <div class="img-wrapper">
-        <img :src="optionImg">
+        <lazy-img
+          :src="imgUrl"
+          :placeholder="placeholderImgUrl"
+        />
       </div>
 
       <div class="txt-wrapper">
@@ -49,15 +52,26 @@ export default {
   },
 
   computed: {
-    optionImg () {
+    imgUrl () {
       let filename = ''
       if (typeof this.option.img !== 'undefined') {
-        filename += this.option.img
+        filename += `${this.option.img}.jpg`
       } else {
         filename += `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.jpg`
       }
-      return require(`../../assets/content-imgs/${filename}`)
+      return `../../assets/content-imgs/${filename}`
+    },
+
+    placeholderImgUrl () {
+      let filename = ''
+      if (typeof this.option.img !== 'undefined') {
+        filename += `${this.option.img}.20px.jpg`
+      } else {
+        filename += `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.20px.jpg`
+      }
+      return `../../assets/content-imgs/${filename}`
     }
+
   },
 
   methods: {
@@ -83,6 +97,8 @@ export default {
 .img-wrapper {
   flex-basis: 40%;
   font-size: 0;
+  display: flex;
+  align-items: center;
 }
 img {
   width: 100%;
@@ -92,6 +108,8 @@ img {
   padding-left: 1rem;
   padding-right: 1rem;
   flex-basis: 60%;
+  display: flex;
+  align-items: center;
 }
 p {
   text-align: left;
