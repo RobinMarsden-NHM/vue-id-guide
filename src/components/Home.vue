@@ -1,21 +1,17 @@
 <template>
   <div class="idguide-home">
     <h1>Tree ID guide</h1>
-    <button
-      @click="startGuide"
-    >
-      Tap to start
-    </button>
+    <router-link to="/guide/start">
+      <button>
+        Tap to start
+      </button>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    startGuide: function () {
-      this.$emit('startGuide')
-    }
-  }
+
 }
 </script>
 

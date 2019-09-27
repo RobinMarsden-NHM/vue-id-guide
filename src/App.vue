@@ -1,19 +1,13 @@
 <template>
   <div class="container">
-    <IdGuide
-      :dataset="dataset"
-    />
+    <router-view :dataset="dataset" />
   </div>
 </template>
 
 <script>
-import IdGuide from './components/IdGuide.vue'
 import dataset from './tree-id.json'
 
 export default {
-  components: {
-    IdGuide
-  },
   data: () => {
     return {
       dataset

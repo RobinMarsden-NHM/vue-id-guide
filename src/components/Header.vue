@@ -10,22 +10,11 @@
 
 <script>
 export default {
-  props: {
-    state: {
-      type: Object,
-      required: true,
-      default: () => ({
-        title: undefined
-      })
-    }
-  }
+
 }
 </script>
 
 <style scoped lang="scss">
-.idguide-header {
-
-}
 h1 {
   margin-top: 0;
   margin-bottom: 1rem;

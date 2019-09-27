@@ -1,9 +1,6 @@
 <template>
-  <div class="idguide-option-wrapper">
-    <div
-      class="idguide-option"
-      @click="selectOption"
-    >
+  <router-link :to="targetPath">
+    <div class="idguide-option">
       <div class="img-wrapper">
         <lazy-img
           :src="imgUrl"
@@ -15,7 +12,7 @@
         <p>{{ option.text }}</p>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -29,22 +26,6 @@ export default {
       })
     },
 
-    state: {
-      type: Object,
-      required: true,
-      default: () => ({
-        title: undefined
-      })
-    },
-
-    currentStateObj: {
-      type: Object,
-      required: true,
-      default: () => ({
-
-      })
-    },
-
     index: {
       type: Number,
       required: true
@@ -54,42 +35,44 @@ export default {
   computed: {
     imgUrl () {
       let filename = ''
-      if (typeof this.option.img !== 'undefined') {
-        filename += `${this.option.img}.jpg`
-      } else {
-        filename += `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.jpg`
-      }
+      typeof this.option.img !== 'undefined'
+        ? filename += `${this.option.img}.jpg`
+        : filename += `${this.$route.params.section}-${this.$route.params.step}-${this.index}.jpg`
       return `../../assets/content-imgs/${filename}`
     },
 
     placeholderImgUrl () {
       let filename = ''
-      if (typeof this.option.img !== 'undefined') {
-        filename += `${this.option.img}.20px.jpg`
-      } else {
-        filename += `${this.state.keyId}-${this.currentStateObj.step}-${this.index}.20px.jpg`
-      }
+      typeof this.option.img !== 'undefined'
+        ? filename += `${this.option.img}.20px.jpg`
+        : filename += `${this.$route.params.section}-${this.$route.params.step}-${this.index}.20px.jpg`
       return `../../assets/content-imgs/${filename}`
-    }
+    },
 
-  },
-
-  methods: {
-    selectOption: function () {
-      this.$emit('selectOption', this.option)
+    targetPath () {
+      let path = ''
+      if (typeof this.option.answerId !== 'undefined') {
+        path += `/answer/${this.option.answerId}`
+      } else if (typeof this.option.section !== 'undefined') {
+        path += `/guide/${this.option.section}/1`
+      } else if (typeof this.option.step !== 'undefined') {
+        path += `/guide/${this.$route.params.section}/${this.option.step}`
+      }
+      return path
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.idguide-option-wrapper {
-  width: 100%;
-  display: inline-block;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 .idguide-option {
   background: rgba(150,255,150,0.4);
   display: flex;
+  width: 100%;
   flex-grow: 0;
   flex-shrink: 0;
   margin-bottom: 1rem;

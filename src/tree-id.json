@@ -1,44 +1,9 @@
 {
 	"title": "Tree ID dataset",
-	
-	"idKeys": [
-		{
-			"id": "master",
-			"description": "Trees found in gardens and urban areas"
-		},
-		{
-			"id": "1",
-			"description": "Trees with leaves that are needle-like or scale-like"
-		},
-		{
-			"id": "2",
-			"description": "Trees with broad leaves, arranged opposite each other in pairs"
-		},
-		{
-			"id": "3",
-			"description": "Trees with leaves arranged alternately, divided into separate leaflets"
-		},
-		{
-			"id": "4",
-			"description": "Evergreen trees with leaves arranged alternately, not divided into leaflets"
-		},
-		{
-			"id": "5",
-			"description": "Deciduous trees with leaves arranged alternately, not divided into leaflets; fruits fleshy or juicy"
-		},
-		{
-			"id": "6",
-			"description": "Deciduous trees with leaves arranged alternately, not divided into leaflets; fruits dry"
-		},
-		{
-			"id": "7",
-			"description": "Cherry trees"
-		}
-	],
 
 	"data": [
 		{
-			"key": "master",
+			"section": "master",
 			"description": "Types of tree found in gardens and urban areas",
 			"steps": [
 				{
@@ -46,7 +11,7 @@
 					"options": [
 						{
 							"text": "Leaves needle-like or scale-like and often overlapping",
-							"key": "1",
+							"section": "1",
 							"img": "monkeypuz"
 						},
 						{
@@ -60,7 +25,7 @@
 					"options": [
 						{
 							"text": "Leaves in pairs, opposite each other on shoots",
-							"key": "2"
+							"section": "2"
 						},
 						{
 							"text": "Leaves alternate on shoots",
@@ -73,7 +38,7 @@
 					"options": [
 						{
 							"text": "Leaves divided into separate leaflets",
-							"key": "3"
+							"section": "3"
 						},
 						{
 							"text": "Leaves with one blade, possibly indented into lobes, but not divided into leaflets",
@@ -86,7 +51,7 @@
 					"options": [
 						{
 							"text": "Leaves evergreen",
-							"key": "4"
+							"section": "4"
 						},
 						{
 							"text": "Leaves deciduous",
@@ -99,11 +64,11 @@
 					"options": [
 						{
 							"text": "Fruits fleshy or juicy",
-							"key": "5"
+							"section": "5"
 						},
 						{
 							"text": "Fruits dry",
-							"key": "6"
+							"section": "6"
 						}
 					]
 				}
@@ -111,7 +76,7 @@
 		},
 
 		{
-			"key": "1",
+			"section": "1",
 			"description": "Trees with leaves that are needle-like or scale-like",
 			"steps": [
 				{
@@ -308,7 +273,7 @@
 		},
 
 		{
-			"key": "2",
+			"section": "2",
 			"description": "Trees with broad leaves, arranged opposite each other in pairs",
 			"steps": [
 				{
@@ -436,7 +401,7 @@
 		},
 
 		{
-			"key": "3",
+			"section": "3",
 			"description": "Trees with leaves arranged alternately, divided into separate leaflets",
 			"steps": [
 				{
@@ -542,7 +507,7 @@
 		},
 
 		{
-			"key": "4",
+			"section": "4",
 			"description": "Evergreen trees with leaves arranged alternately, not divided into leaflets",
 			"steps": [
 				{
@@ -652,7 +617,7 @@
 		},
 
 		{
-			"key": "5",
+			"section": "5",
 			"description": "Deciduous trees with leaves arranged alternately, not divided into leaflets; fruits fleshy or juicy",
 			"steps": [
 				{
@@ -790,7 +755,7 @@
 					"options": [
 						{
 							"text": "Fruit is less than 2cm long; the bark often has distinctive horizontal bands of pores",
-							"key": "7"
+							"section": "7"
 						},
 						{
 							"text": "Fruit is more than 2cm long; the bark doesn’t have horizontal bands of pores",
@@ -879,7 +844,7 @@
 		},
 
 		{
-			"key": "6",
+			"section": "6",
 			"description": "Deciduous trees with leaves arranged alternately, not divided into leaflets; fruits dry",
 			"steps": [
 				{
@@ -1110,7 +1075,7 @@
 		},
 
 		{
-			"key": "7",
+			"section": "7",
 			"description": "",
 			"steps": [
 				{

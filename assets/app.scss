@@ -30,6 +30,18 @@ body {
 	font-family: "elysio-regular";
 }
 
+.view-wrapper {
+  position: relative;
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flex-grow {
+	flex-grow: 1;
+}
+
 h1 {
 	font-size: 1.5rem;
 	box-sizing: border-box;
@@ -51,4 +63,23 @@ button {
 
 .lazy-image {
 	max-width: inherit !important;
+}
+.navButton {
+  padding: 1rem;
+  border: none;
+  background: none;
+	color: $color-darkgreen;
+
+  &:active:not(.disabled) {
+    transform: scale(0.9);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
 }
