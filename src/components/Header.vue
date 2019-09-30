@@ -2,7 +2,7 @@
   <div class="idguide-header">
     <img
       class="logo"
-      src="../img/logo.png"
+      src="../assets/img/logo.png"
       alt="NHM logo"
     >
   </div>

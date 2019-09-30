@@ -68,7 +68,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 100000,
           name: 'img/[name].[hash].[ext]'
         }
       }
@@ -104,17 +104,17 @@ module.exports = {
       theme_color: '#ffffff',
       icons: [
         {
-          src: path.resolve('src/img/icon.png'),
+          src: path.resolve('src/assets/img/icon.png'),
           sizes: [36, 48, 192, 512]
         },
         {
-          src: path.resolve('src/img/ios-icon.png'),
+          src: path.resolve('src/assets/img/ios-icon.png'),
           sizes: [36, 48, 192, 512, 1024],
           destination: path.join('icons', 'ios'),
           ios: true
         }
       ]
     }),
-    new FaviconsWebpackPlugin('./src/img/icon.png')
+    new FaviconsWebpackPlugin('./src/assets/img/icon.png')
   ]
 }

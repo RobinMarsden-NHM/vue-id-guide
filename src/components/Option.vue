@@ -38,7 +38,7 @@ export default {
       typeof this.option.img !== 'undefined'
         ? filename += `${this.option.img}.jpg`
         : filename += `${this.$route.params.section}-${this.$route.params.step}-${this.index}.jpg`
-      return `../../assets/content-imgs/${filename}`
+      return require(`../assets/img/content-imgs/${filename}`)
     },
 
     placeholderImgUrl () {
@@ -46,7 +46,7 @@ export default {
       typeof this.option.img !== 'undefined'
         ? filename += `${this.option.img}.20px.jpg`
         : filename += `${this.$route.params.section}-${this.$route.params.step}-${this.index}.20px.jpg`
-      return `../../assets/content-imgs/${filename}`
+      return require(`../assets/img/content-imgs/${filename}`)
     },
 
     targetPath () {

@@ -35,14 +35,13 @@ export default {
 
     imgUrl () {
       const filename = `${this.answer.img}`
-      return `../../assets/content-imgs/${filename}.jpg`
+      return require(`../assets/img/content-imgs/${filename}.jpg`)
     },
 
     placeholderImgUrl () {
       if (this.answer.img) {
         const filename = `${this.answer.img}`
-        console.log(`../../assets/content-imgs/${filename}.20px.jpg`)
-        return `../../assets/content-imgs/${filename}.20px.jpg`
+        return require(`../assets/img/content-imgs/${filename}.20px.jpg`)
       } else {
         return ''
       }

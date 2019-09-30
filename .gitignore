@@ -2,3 +2,6 @@ node_modules
 dist
 assets/content-imgs/massiveImgsTest/
 assets/content-imgs/orig/
+src/assets/img/content-imgs/bak/
+src/assets/img/content-imgs/orig/
+src/assets/img/content-imgs/massiveImgsTest/

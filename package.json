@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack/dev.config.js",
+    "dev": "clear && webpack-dev-server --config webpack/dev.config.js",
     "build": "clear && webpack --config webpack/prod.config.js",
     "lint": "eslint --ext .js,.vue src",
     "start": "npm run-script build && http-server dist -p 8082"

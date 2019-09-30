@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueLazyImageLoading from 'vue-lazy-image-loading'
-import '../assets/app.scss'
+import './assets/app.scss'
 import { inputTypes } from './common/globals'
 import router from './router'
 import VueRouter from 'vue-router'
